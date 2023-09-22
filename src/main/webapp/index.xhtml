@@ -8,12 +8,24 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<h:head>
-		<title>H O M E</title>
+		<title>CADASTRO</title>
 	</h:head>
 	<h:body>
-		<p>Olá mundo</p>
-		<p:commandButton value="Click nessa pica"></p:commandButton>
+		<h:form>
+			<div style="display: flex; justify-content: center;">
+				<p:panel id="jogadaPanel" header="Cadastro jogador" style="justify-content: center; font-size:40px">
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Jogador 1" id="joqador1Label"></p:outputLabel>
+						<p:inputText id="jogador1Input" value="#{jogadaBean.jogada.jogador1}"></p:inputText>
+						<p:outputLabel value="Jogador 2" id="joqador2Label"></p:outputLabel>
+						<p:inputText id="jogador2Input" value="#{jogadaBean.jogada.jogador2}"></p:inputText>
+						<p:commandButton type="submit" value="Salvar" action="#{jogadaBean.salvar()}" update="jogadaPanel"/>
+					</p:panelGrid>
+				</p:panel>
+			</div>
+		</h:form>
+		<div style="display: flex; justify-content: center; margin-top: 25px">
+			<p:commandButton onclick="window.location.href = 'listagem.xhtml'" value="Go Listagem"/>
+		</div>
 	</h:body>
-	
-
 </html>

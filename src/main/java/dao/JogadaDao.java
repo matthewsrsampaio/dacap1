@@ -8,7 +8,7 @@ import javax.persistence.Query;
 import entity.Jogada;
 import util.Jpa;
 
-public class JoagadaDao {
+public class JogadaDao {
 	
 	public static void salvar(Jogada jogada) throws Exception {
 	    EntityManager em = Jpa.criarEntityManager();

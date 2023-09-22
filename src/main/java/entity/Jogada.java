@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 public class Jogada {
 
@@ -17,11 +19,12 @@ public class Jogada {
 	private Integer id;
 	private String jogador1;
 	private String jogador2;
+	private String jogada1;
+	private String jogada2;
 	private String resultado;
 	@Temporal(TemporalType.DATE)
-	@Column(columnDefinition = "Data")
-	private Date data_jogo;
-	
+	@Column(columnDefinition = "DATE")
+	private Date dataJogo = new Date();
 	public Integer getId() {
 		return id;
 	}
@@ -40,19 +43,29 @@ public class Jogada {
 	public void setJogador2(String jogador2) {
 		this.jogador2 = jogador2;
 	}
+	public String getJogada1() {
+		return jogada1;
+	}
+	public void setJogada1(String jogada1) {
+		this.jogada1 = jogada1;
+	}
+	public String getJogada2() {
+		return jogada2;
+	}
+	public void setJogada2(String jogada2) {
+		this.jogada2 = jogada2;
+	}
 	public String getResultado() {
 		return resultado;
 	}
 	public void setResultado(String resultado) {
 		this.resultado = resultado;
 	}
-	public Date getData_jogo() {
-		return data_jogo;
+	public Date getDataJogo() {
+		return dataJogo;
 	}
-	public void setData_jogo(Date data_jogo) {
-		this.data_jogo = data_jogo;
-	}
-	
-	
+	public void setDataJogo(Date dataJogo) {
+		this.dataJogo = dataJogo;
+	}	
 	
 }
