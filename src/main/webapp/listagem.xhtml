@@ -14,6 +14,37 @@
 		<div style="display: flex; justify-content: center; margin-top: 25px">
 			<p:commandButton onclick="window.location.href = 'index.xhtml'" value="Go HOME"/>
 		</div>
-		<p>ipdioasndoakjsndalk</p>
+		<h:form id="form" style="display: flex; justify-content: center">
+			<p:dataTable id="listaTabela" value="#{jogadaBean.listaJogador}" var="lis" rowKey="#{lis.id}" style="width: 90%; height: 70%;" selectionMode="single">		
+				
+				<p:column id="idColumn" headerText="ID"  style="width: 10%">
+					<p:outputLabel id="idOutput" value="#{lis.id}"/>
+				</p:column>
+				<p:column headerText="Jogador 1"  style="width: 20%">
+					<p:outputLabel value="#{lis.jogador1}"/>
+				</p:column>
+				<p:column headerText="Jogador 2" style="width: 10%;">
+					<p:outputLabel value="#{lis.jogador2}"/>
+				</p:column>
+				<p:column headerText="Jogada 1" style="width: 10%">
+					<p:outputLabel value="#{lis.jogada1}"/>
+				</p:column>
+				<p:column headerText="Jogada 2" style="width: 5%">
+					<p:outputLabel value="#{lis.jogada2}"/>
+				</p:column>
+				<p:column headerText="Resultado" style="width: 5%">
+					<p:outputLabel value="#{lis.resultado}"/>
+				</p:column>
+				<p:column headerText="Data" style="width: 5%">
+					<p:outputLabel value="#{lis.dataJogo}"/>
+				</p:column>
+									
+				<p:column headerText="Deletar" style="width:5%; text-align: center;">
+					<p:commandButton value="Deletar" action="#{comidaBean.deletar}" icon="pi pi-times" styleClass="rounded-button ui-button-danger" oncomplete="location.reload()">
+						<f:setPropertyActionListener value="#{lis}" target="#{comidaBean.comida}"></f:setPropertyActionListener>
+					</p:commandButton>
+				</p:column>				
+			</p:dataTable>
+		</h:form>
 	</h:body>
 </html>

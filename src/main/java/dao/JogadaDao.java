@@ -39,7 +39,7 @@ public class JogadaDao {
 	public static List<Jogada> buscarTodos() throws Exception {
 		EntityManager em = Jpa.criarEntityManager();
 		try {
-			Query query = em.createQuery("select c from Comida c");
+			Query query = em.createQuery("select j from Jogada j");
 			List<Jogada> lista = query.getResultList();
 			return lista;
 		}catch(Exception e) {

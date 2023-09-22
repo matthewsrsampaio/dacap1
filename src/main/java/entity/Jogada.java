@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.Type;
-
 @Entity
 public class Jogada {
 
@@ -25,6 +23,7 @@ public class Jogada {
 	@Temporal(TemporalType.DATE)
 	@Column(columnDefinition = "DATE")
 	private Date dataJogo = new Date();
+	
 	public Integer getId() {
 		return id;
 	}
