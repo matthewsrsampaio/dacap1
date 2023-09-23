@@ -12,39 +12,49 @@
 	</h:head>
 	<h:body>
 		<div style="display: flex; justify-content: center; margin-top: 25px">
-			<p:commandButton onclick="window.location.href = 'index.xhtml'" value="Go HOME"/>
+			<p:commandButton onclick="window.location.href = 'index.xhtml'" value="Go HOME" styleClass="ui-button-warning"/>
 		</div>
-		<h:form id="form" style="display: flex; justify-content: center">
-			<p:dataTable id="listaTabela" value="#{jogadaBean.listaJogador}" var="lis" rowKey="#{lis.id}" style="width: 90%; height: 70%;" selectionMode="single">		
-				
-				<p:column id="idColumn" headerText="ID"  style="width: 10%">
-					<p:outputLabel id="idOutput" value="#{lis.id}"/>
-				</p:column>
-				<p:column headerText="Jogador 1"  style="width: 20%">
-					<p:outputLabel value="#{lis.jogador1}"/>
-				</p:column>
-				<p:column headerText="Jogador 2" style="width: 10%;">
-					<p:outputLabel value="#{lis.jogador2}"/>
-				</p:column>
-				<p:column headerText="Jogada 1" style="width: 10%">
-					<p:outputLabel value="#{lis.jogada1}"/>
-				</p:column>
-				<p:column headerText="Jogada 2" style="width: 5%">
-					<p:outputLabel value="#{lis.jogada2}"/>
-				</p:column>
-				<p:column headerText="Resultado" style="width: 5%">
-					<p:outputLabel value="#{lis.resultado}"/>
-				</p:column>
-				<p:column headerText="Data" style="width: 5%">
-					<p:outputLabel value="#{lis.dataJogo}"/>
-				</p:column>
-									
-				<p:column headerText="Deletar" style="width:5%; text-align: center;">
-					<p:commandButton value="Deletar" action="#{comidaBean.deletar}" icon="pi pi-times" styleClass="rounded-button ui-button-danger" oncomplete="location.reload()">
-						<f:setPropertyActionListener value="#{lis}" target="#{comidaBean.comida}"></f:setPropertyActionListener>
-					</p:commandButton>
-				</p:column>				
-			</p:dataTable>
+		<h:form id="form">
+			<p:panel id="listagemPanel" header="Listagem" style="justify-content: center; font-size:60px; position:relative; text-align: center;">
+				<p:dataTable id="listaTabela" value="#{jogadaBean.listaJogador}" var="lis" rowKey="#{lis.id}" style="width: 90%; height: 70%;" selectionMode="single">
+					<p:column id="idColumn" headerText="ID">
+						<p:outputLabel id="idOutput" value="#{lis.id}"/>
+					</p:column>
+					<p:column headerText="Jogador 1">
+						<p:outputLabel value="#{lis.jogador1}"/>
+						<p:inputText id="jogador1InputListagem" value="#{jogadaBean.jogadorEspelho1}" rendered="#{jogadaBean.inputEdit}"/>	
+					</p:column>
+					<p:column headerText="Jogador 2">
+						<p:outputLabel value="#{lis.jogador2}"/>
+						<p:inputText id="jogador2InputListagem" value="#{jogadaBean.jogadorEspelho2}" rendered="#{jogadaBean.inputEdit}"/>	
+					</p:column>
+					<p:column headerText="Jogada 1">
+						<p:outputLabel value="#{lis.jogada1}"/>
+					</p:column>
+					<p:column headerText="Jogada 2">
+						<p:outputLabel value="#{lis.jogada2}"/>
+					</p:column>
+					<p:column headerText="Resultado">
+						<p:outputLabel value="#{lis.resultado}"/>
+					</p:column>
+					<p:column headerText="Data">
+						<p:outputLabel value="#{lis.dataJogo}"/>
+					</p:column>		
+					<p:column headerText="Editar">
+						<p:commandButton action="#{jogadaBean.botaoEditar(lis)}" icon="pi pi-bookmark" rendered="#{jogadaBean.outputEdit}" oncomplete="location.reload()">
+							<f:setPropertyActionListener value="#{lis}" target="#{jogadaBean.jogada}"/>
+						</p:commandButton>
+						<p:commandButton value="OK" action="#{jogadaBean.editar()}" rendered="#{jogadaBean.inputEdit}" oncomplete="location.reload()">
+							<f:setPropertyActionListener value="#{lis}" target="#{jogadaBean.jogada}"/>
+						</p:commandButton>
+					</p:column>	
+					<p:column headerText="Deletar">
+						<p:commandButton action="#{jogadaBean.deletar()}" icon="pi pi-times" styleClass="rounded-button ui-button-danger" oncomplete="location.reload()">
+							<f:setPropertyActionListener value="#{lis}" target="#{jogadaBean.jogada}"/>
+						</p:commandButton>
+					</p:column>				
+				</p:dataTable>
+			</p:panel>
 		</h:form>
 	</h:body>
 </html>

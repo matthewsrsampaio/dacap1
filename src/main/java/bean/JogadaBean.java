@@ -3,15 +3,21 @@ package bean;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import dao.JogadaDao;
 import entity.Jogada;
 
+@SessionScoped
 @ManagedBean
 public class JogadaBean {
 	
 	private Jogada jogada = new Jogada();
 	private List<Jogada> listaJogador;
+	private Boolean outputEdit = true;
+	private Boolean inputEdit = false;
+	private String jogadorEspelho1;
+	private String jogadorEspelho2;
 	
 	public void clear() throws Exception{
 		try {
@@ -34,7 +40,52 @@ public class JogadaBean {
 		}
 	}
 	
-	//Essas desgraças de métodos precisam ter get e set pra poder serem chamados la no HTML
+	public String deletar() throws Exception {
+		try {
+			JogadaDao.deletar(jogada);
+			return null;
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	public void ligaCampo() {
+		inputEdit = true;
+		outputEdit = false;
+	}
+	
+	public void desligaCampo() {
+		inputEdit = false;
+		outputEdit = true;
+	}
+	
+	public String botaoEditar(Jogada jogada) throws Exception {
+		ligaCampo();
+		//clear();
+		return null;
+	}
+	
+	public String editar() throws Exception {
+		try {
+			jogada.setJogador1(jogadorEspelho1);
+			jogada.setJogador2(jogadorEspelho2);
+			System.out.println("Cheguei em editar");
+			System.out.println(jogada.getJogador1());
+			System.out.println(jogada.getJogador2());
+			JogadaDao.editar(jogada);
+			System.out.println("Depois de editar os valores ficaram assim:");
+			System.out.println(jogada.getJogador1());
+			System.out.println(jogada.getJogador2());
+			desligaCampo();
+			jogadorEspelho1 = "";
+			jogadorEspelho2 = "";
+			return null;
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	//GETTERS AND SETTERS
 	public Jogada getJogada() {
 		return jogada;
 	}
@@ -47,5 +98,29 @@ public class JogadaBean {
 	public void setListaJogador(List<Jogada> listaJogador) {
 		this.listaJogador = listaJogador;
 	}
-
+	public Boolean getOutputEdit() {
+		return outputEdit;
+	}
+	public void setOutputEdit(Boolean outputEdit) {
+		this.outputEdit = outputEdit;
+	}
+	public Boolean getInputEdit() {
+		return inputEdit;
+	}
+	public void setInputEdit(Boolean inputEdit) {
+		this.inputEdit = inputEdit;
+	}
+	public String getJogadorEspelho1() {
+		return jogadorEspelho1;
+	}
+	public void setJogadorEspelho1(String jogadorEspelho1) {
+		this.jogadorEspelho1 = jogadorEspelho1;
+	}
+	public String getJogadorEspelho2() {
+		return jogadorEspelho2;
+	}
+	public void setJogadorEspelho2(String jogadorEspelho2) {
+		this.jogadorEspelho2 = jogadorEspelho2;
+	}
+	
 }
