@@ -11,6 +11,9 @@
 		<title>CADASTRO</title>
 	</h:head>
 	<h:body>
+		<div style="display: flex; justify-content: center; margin-bottom: 25px">
+			<p:commandButton onclick="window.location.href = 'listagem.xhtml'" value="Go Listagem" styleClass="ui-button-warning"/>
+		</div>
 		<h:form>
 			<div style="display: flex; justify-content: center;">
 				<p:panel id="jogadaPanel" header="Cadastro jogador" style="justify-content: center; font-size:40px">
@@ -24,8 +27,5 @@
 				</p:panel>
 			</div>
 		</h:form>
-		<div style="display: flex; justify-content: center; margin-top: 25px">
-			<p:commandButton onclick="window.location.href = 'listagem.xhtml'" value="Go Listagem"/>
-		</div>
 	</h:body>
 </html>

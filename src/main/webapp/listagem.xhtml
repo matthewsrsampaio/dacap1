@@ -11,8 +11,8 @@
 		<title>Listagem</title>
 	</h:head>
 	<h:body>
-		<div style="display: flex; justify-content: center; margin-top: 25px">
-			<p:commandButton onclick="window.location.href = 'index.xhtml'" value="Go HOME" styleClass="ui-button-warning"/>
+		<div style="display: flex; justify-content: center; margin-bottom: 25px">
+			<p:commandButton onclick="window.location.href = 'index.xhtml'" value="Go HOME"/>
 		</div>
 		<h:form id="form">
 			<p:panel id="listagemPanel" header="Listagem" style="justify-content: center; font-size:60px; position:relative; text-align: center;">
@@ -44,7 +44,7 @@
 						<p:commandButton action="#{jogadaBean.botaoEditar(lis)}" icon="pi pi-bookmark" rendered="#{jogadaBean.outputEdit}" oncomplete="location.reload()">
 							<f:setPropertyActionListener value="#{lis}" target="#{jogadaBean.jogada}"/>
 						</p:commandButton>
-						<p:commandButton value="OK" action="#{jogadaBean.editar()}" rendered="#{jogadaBean.inputEdit}" oncomplete="location.reload()">
+						<p:commandButton value="OK" action="#{jogadaBean.editar(lis)}" rendered="#{jogadaBean.inputEdit}" oncomplete="location.reload()">
 							<f:setPropertyActionListener value="#{lis}" target="#{jogadaBean.jogada}"/>
 						</p:commandButton>
 					</p:column>	

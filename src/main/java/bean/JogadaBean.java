@@ -65,20 +65,12 @@ public class JogadaBean {
 		return null;
 	}
 	
-	public String editar() throws Exception {
+	public String editar(Jogada jogada) throws Exception {
 		try {
 			jogada.setJogador1(jogadorEspelho1);
 			jogada.setJogador2(jogadorEspelho2);
-			System.out.println("Cheguei em editar");
-			System.out.println(jogada.getJogador1());
-			System.out.println(jogada.getJogador2());
 			JogadaDao.editar(jogada);
-			System.out.println("Depois de editar os valores ficaram assim:");
-			System.out.println(jogada.getJogador1());
-			System.out.println(jogada.getJogador2());
 			desligaCampo();
-			jogadorEspelho1 = "";
-			jogadorEspelho2 = "";
 			return null;
 		}catch(Exception e) {
 			throw e;
