@@ -36,6 +36,7 @@ public class JogadaBean {
     }
 	
 	public String salvar() throws Exception{
+		JogadaDao.salvar(jogada);
 		//papel = 0   
 		//pedra = 1
 		//tesoura = 2
@@ -64,25 +65,28 @@ public class JogadaBean {
 				jogada.setResultado(jogada.getJogador2());
 			}
 			
-			Integer contaPapel = jogada.getPapel();
-			Integer contaPedra = jogada.getPedra();
-			Integer contaTesoura = jogada.getTesoura();
+			Jogada jogo = JogadaDao.buscarPorId(jogada.getId()-1);
 			
-			System.out.println(contaPapel);
-			System.out.println(contaPedra);
-			
+			System.out.println("Id da porra aqui: " + jogo.getJogador1() + jogo.getId() + jogo.getPapel() + jogo.getPedra() + jogo.getTesoura());
+						
 			switch(jogadaEspelho1) {
 			 case 0:
 				 jogada.setJogada1("Papel");
-				 jogada.setPapel(contaPapel++);
+				 jogada.setPapel(jogo.getPapel()+1);
+				 jogada.setPedra(jogo.getPedra());
+				 jogada.setTesoura(jogo.getTesoura());
 				 break;
 			 case 1:
 				 jogada.setJogada1("Pedra");
-				 jogada.setPedra(contaPedra++);
+				 jogada.setPapel(jogo.getPapel());
+				 jogada.setPedra(jogo.getPedra()+1);
+				 jogada.setTesoura(jogo.getTesoura());
 				 break;
 			 case 2:
 				 jogada.setJogada1("Tesoura");
-				 jogada.setTesoura(contaTesoura++);
+				 jogada.setPapel(jogo.getPapel());
+				 jogada.setPedra(jogo.getPedra());
+				 jogada.setTesoura(jogo.getTesoura()+1);
 				 break;
 			 default:
 				 jogada.setJogada1(null);
@@ -92,21 +96,31 @@ public class JogadaBean {
 			switch(jogadaEspelho2) {
 			 case 0:
 				 jogada.setJogada2("Papel");
-				 jogada.setPapel(contaPapel++);
+				 jogada.setPapel(jogo.getPapel()+1);
+				 jogada.setPedra(jogo.getPedra());
+				 jogada.setTesoura(jogo.getTesoura());
 				 break;
 			 case 1:
 				 jogada.setJogada2("Pedra");
-				 jogada.setPedra(contaPedra++);
+				 jogada.setPapel(jogo.getPapel());
+				 jogada.setPedra(jogo.getPedra()+1);
+				 jogada.setTesoura(jogo.getTesoura());
 				 break;
 			 case 2:
 				 jogada.setJogada2("Tesoura");
-				 jogada.setTesoura(contaTesoura++);
+				 jogada.setPapel(jogo.getPapel());
+				 jogada.setPedra(jogo.getPedra());
+				 jogada.setTesoura(jogo.getTesoura()+1);
 				 break;
 			 default:
 				 jogada.setJogada2(null);
 				 System.out.println("invalid result");
 			}
-			JogadaDao.salvar(jogada);
+			
+			System.out.println("PERTO DE EDITAR: " + jogo.getJogador2() + jogo.getId() + jogo.getPapel() + jogo.getPedra() + jogo.getTesoura());
+			JogadaDao.editar(jogo);
+			JogadaDao.editar(jogada);
+			
 			String texto = jogada.getResultado();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Objeto salvo com sucesso!", "Resultado do jogo: " + texto));
 			clear();
