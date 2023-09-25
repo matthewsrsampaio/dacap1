@@ -14,6 +14,9 @@
 		<div style="display: flex; justify-content: center; margin-bottom: 25px">
 			<p:commandButton onclick="window.location.href = 'index.xhtml'" value="Go HOME"/>
 		</div>
+		<p:messages id="messageDeleteUpdate" showDetail="true" closable="true" style="justify-content:center; display:flex">
+			<p:autoUpdate/>
+		</p:messages>
 		<h:form id="form">
 			<p:panel id="listagemPanel" header="Listagem" style="justify-content: center; font-size:60px; position:relative; text-align: center;">
 				<p:dataTable id="listaTabela" value="#{jogadaBean.listaJogador}" var="lis" rowKey="#{lis.id}" style="width: 90%; height: 70%;" selectionMode="single">
@@ -49,7 +52,7 @@
 						</p:commandButton>
 					</p:column>	
 					<p:column headerText="Deletar">
-						<p:commandButton action="#{jogadaBean.deletar()}" icon="pi pi-times" styleClass="rounded-button ui-button-danger" oncomplete="location.reload()">
+						<p:commandButton action="#{jogadaBean.deletar()}" icon="pi pi-times" styleClass="rounded-button ui-button-danger" update="listaTabela">
 							<f:setPropertyActionListener value="#{lis}" target="#{jogadaBean.jogada}"/>
 						</p:commandButton>
 					</p:column>				

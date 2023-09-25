@@ -6,10 +6,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@Table(name = "jogada")
 public class Jogada {
 
 	@Id
@@ -20,6 +22,9 @@ public class Jogada {
 	private String jogada1;
 	private String jogada2;
 	private String resultado;
+	private Integer papel = 0;
+	private Integer pedra = 0;
+	private Integer tesoura = 0;
 	@Temporal(TemporalType.DATE)
 	@Column(columnDefinition = "DATE")
 	private Date dataJogo = new Date();
@@ -65,6 +70,24 @@ public class Jogada {
 	}
 	public void setDataJogo(Date dataJogo) {
 		this.dataJogo = dataJogo;
+	}
+	public Integer getPapel() {
+		return papel;
+	}
+	public void setPapel(Integer papel) {
+		this.papel = papel;
+	}
+	public Integer getPedra() {
+		return pedra;
+	}
+	public void setPedra(Integer pedra) {
+		this.pedra = pedra;
+	}
+	public Integer getTesoura() {
+		return tesoura;
+	}
+	public void setTesoura(Integer tesoura) {
+		this.tesoura = tesoura;
 	}	
 	
 }
