@@ -67,26 +67,31 @@ public class JogadaBean {
 			
 			Jogada jogo = JogadaDao.buscarPorId(jogada.getId()-1);
 			
-			System.out.println("Id da porra aqui: " + jogo.getJogador1() + jogo.getId() + jogo.getPapel() + jogo.getPedra() + jogo.getTesoura());
+			Integer pedra=0;
+			Integer papel=0;
+			Integer tesoura=0;
 						
 			switch(jogadaEspelho1) {
 			 case 0:
 				 jogada.setJogada1("Papel");
-				 jogada.setPapel(jogo.getPapel()+1);
+				 papel++;
+				 //jogada.setPapel(jogo.getPapel()+1);
 				 jogada.setPedra(jogo.getPedra());
 				 jogada.setTesoura(jogo.getTesoura());
 				 break;
 			 case 1:
 				 jogada.setJogada1("Pedra");
 				 jogada.setPapel(jogo.getPapel());
-				 jogada.setPedra(jogo.getPedra()+1);
+				 pedra++;
+				 //jogada.setPedra(jogo.getPedra()+1);
 				 jogada.setTesoura(jogo.getTesoura());
 				 break;
 			 case 2:
 				 jogada.setJogada1("Tesoura");
 				 jogada.setPapel(jogo.getPapel());
 				 jogada.setPedra(jogo.getPedra());
-				 jogada.setTesoura(jogo.getTesoura()+1);
+				 tesoura++;
+				 //jogada.setTesoura(jogo.getTesoura()+1);
 				 break;
 			 default:
 				 jogada.setJogada1(null);
@@ -96,13 +101,15 @@ public class JogadaBean {
 			switch(jogadaEspelho2) {
 			 case 0:
 				 jogada.setJogada2("Papel");
-				 jogada.setPapel(jogo.getPapel()+1);
+				 papel++;
+				 //jogada.setPapel(jogo.getPapel()+1);
 				 jogada.setPedra(jogo.getPedra());
 				 jogada.setTesoura(jogo.getTesoura());
 				 break;
 			 case 1:
 				 jogada.setJogada2("Pedra");
 				 jogada.setPapel(jogo.getPapel());
+				 pedra++;
 				 jogada.setPedra(jogo.getPedra()+1);
 				 jogada.setTesoura(jogo.getTesoura());
 				 break;
@@ -110,6 +117,7 @@ public class JogadaBean {
 				 jogada.setJogada2("Tesoura");
 				 jogada.setPapel(jogo.getPapel());
 				 jogada.setPedra(jogo.getPedra());
+				 tesoura++;
 				 jogada.setTesoura(jogo.getTesoura()+1);
 				 break;
 			 default:
@@ -117,7 +125,9 @@ public class JogadaBean {
 				 System.out.println("invalid result");
 			}
 			
-			System.out.println("PERTO DE EDITAR: " + jogo.getJogador2() + jogo.getId() + jogo.getPapel() + jogo.getPedra() + jogo.getTesoura());
+			jogada.setPedra(jogo.getPedra()+pedra);
+			jogada.setPapel(jogo.getPapel()+papel);
+			jogada.setTesoura(jogo.getTesoura()+tesoura);
 			JogadaDao.editar(jogo);
 			JogadaDao.editar(jogada);
 			
