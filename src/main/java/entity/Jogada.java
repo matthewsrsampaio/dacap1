@@ -16,7 +16,7 @@ public class Jogada {
 
 	@Id
 	@GeneratedValue
-	private Integer id;
+	private Integer id = 0;
 	private String jogador1;
 	private String jogador2;
 	private String jogada1;

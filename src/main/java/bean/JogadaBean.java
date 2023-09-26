@@ -1,23 +1,19 @@
 package bean;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
 import dao.JogadaDao;
 import entity.Jogada;
 
-@ApplicationScoped
+//@ApplicationScoped
 //@SessionScoped
 //@RequestScoped
 //@ViewScoped
@@ -80,32 +76,37 @@ public class JogadaBean {
 		//tesoura = 2
 		try {
 			JogadaDao.salvar(jogada);
-			Random random = new Random();
-			int jogadaEspelho1 = random.nextInt(3);
-			int jogadaEspelho2 = random.nextInt(3);
 			
-			if(jogadaEspelho1==0&&jogadaEspelho2==0) {
-				jogada.setResultado("Empate");
-			}else if(jogadaEspelho1==1&&jogadaEspelho2==1) {
-				jogada.setResultado("Empate");
-			} else if(jogadaEspelho1==2&&jogadaEspelho2==2) {
-				jogada.setResultado("Empate");
-			} else if(jogadaEspelho1==0&&jogadaEspelho2==1) {
-				jogada.setResultado(jogada.getJogador1());
-			} else if(jogadaEspelho1==0&&jogadaEspelho2==2) {
-				jogada.setResultado(jogada.getJogador2());
-			} else if(jogadaEspelho1==1&&jogadaEspelho2==0) {
-				jogada.setResultado(jogada.getJogador2());
-			} else if(jogadaEspelho1==1&&jogadaEspelho2==2) {
-				jogada.setResultado(jogada.getJogador1());
-			} else if(jogadaEspelho1==2&&jogadaEspelho2==0) {
-				jogada.setResultado(jogada.getJogador1());
-			} else if(jogadaEspelho1==2&&jogadaEspelho2==1) {
-				jogada.setResultado(jogada.getJogador2());
-			}
-			
-			if(jogada.getId() != 0 || jogada.getId() != null) {
+			if(jogada.getJogada1() != null) {
 				Jogada jogo = JogadaDao.buscarPorId(jogada.getId()-1);
+								
+				jogo.setPedra(0);
+				jogo.setPapel(0);
+				jogo.setTesoura(0);
+				
+				Random random = new Random();
+				int jogadaEspelho1 = random.nextInt(3);
+				int jogadaEspelho2 = random.nextInt(3);
+				
+				if(jogadaEspelho1==0&&jogadaEspelho2==0) {
+					jogada.setResultado("Empate");
+				}else if(jogadaEspelho1==1&&jogadaEspelho2==1) {
+					jogada.setResultado("Empate");
+				} else if(jogadaEspelho1==2&&jogadaEspelho2==2) {
+					jogada.setResultado("Empate");
+				} else if(jogadaEspelho1==0&&jogadaEspelho2==1) {
+					jogada.setResultado(jogada.getJogador1());
+				} else if(jogadaEspelho1==0&&jogadaEspelho2==2) {
+					jogada.setResultado(jogada.getJogador2());
+				} else if(jogadaEspelho1==1&&jogadaEspelho2==0) {
+					jogada.setResultado(jogada.getJogador2());
+				} else if(jogadaEspelho1==1&&jogadaEspelho2==2) {
+					jogada.setResultado(jogada.getJogador1());
+				} else if(jogadaEspelho1==2&&jogadaEspelho2==0) {
+					jogada.setResultado(jogada.getJogador1());
+				} else if(jogadaEspelho1==2&&jogadaEspelho2==1) {
+					jogada.setResultado(jogada.getJogador2());
+				}
 						
 				Integer pedra=0;
 				Integer papel=0;
@@ -168,7 +169,83 @@ public class JogadaBean {
 				String texto = jogada.getResultado();
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Objeto salvo com sucesso!", ""));
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Resultado do jogo: ", texto));
+								
+			} else if(jogada.getJogada1() == null) {
 				
+				Random random = new Random();
+				int jogadaEspelho1 = random.nextInt(3);
+				int jogadaEspelho2 = random.nextInt(3);
+				
+				if(jogadaEspelho1==0&&jogadaEspelho2==0) {
+					jogada.setResultado("Empate");
+				}else if(jogadaEspelho1==1&&jogadaEspelho2==1) {
+					jogada.setResultado("Empate");
+				} else if(jogadaEspelho1==2&&jogadaEspelho2==2) {
+					jogada.setResultado("Empate");
+				} else if(jogadaEspelho1==0&&jogadaEspelho2==1) {
+					jogada.setResultado(jogada.getJogador1());
+				} else if(jogadaEspelho1==0&&jogadaEspelho2==2) {
+					jogada.setResultado(jogada.getJogador2());
+				} else if(jogadaEspelho1==1&&jogadaEspelho2==0) {
+					jogada.setResultado(jogada.getJogador2());
+				} else if(jogadaEspelho1==1&&jogadaEspelho2==2) {
+					jogada.setResultado(jogada.getJogador1());
+				} else if(jogadaEspelho1==2&&jogadaEspelho2==0) {
+					jogada.setResultado(jogada.getJogador1());
+				} else if(jogadaEspelho1==2&&jogadaEspelho2==1) {
+					jogada.setResultado(jogada.getJogador2());
+				}
+				
+				Integer pedra=0;
+				Integer papel=0;
+				Integer tesoura=0;
+							
+				switch(jogadaEspelho1) {
+				 case 0:
+					 jogada.setJogada1("Papel");
+					 papel++;
+					 break;
+				 case 1:
+					 jogada.setJogada1("Pedra");
+					 pedra++;
+					 break;
+				 case 2:
+					 jogada.setJogada1("Tesoura");
+					 tesoura++;
+					 break;
+				 default:
+					 jogada.setJogada1(null);
+					 System.out.println("invalid result");
+				}
+				
+				switch(jogadaEspelho2) {
+				 case 0:
+					 jogada.setJogada2("Papel");
+					 papel++;
+					 break;
+				 case 1:
+					 jogada.setJogada2("Pedra");
+					 pedra++;
+					 break;
+				 case 2:
+					 jogada.setJogada2("Tesoura");
+					 tesoura++;
+					 break;
+				 default:
+					 jogada.setJogada2(null);
+					 System.out.println("invalid result");
+				}
+				
+				jogada.setPedra(pedra);
+				jogada.setPapel(papel);
+				jogada.setTesoura(tesoura);
+				
+				JogadaDao.editar(jogada);
+				clear();
+				
+				String texto = jogada.getResultado();
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Objeto salvo com sucesso!", ""));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Resultado do jogo: ", texto));
 			} else {
 				System.out.println("ERRO! Id é zero ou nulo.");
 			}
