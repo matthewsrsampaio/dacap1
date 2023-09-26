@@ -150,6 +150,10 @@ public class JogadaBean {
 		JogadaDao.editar(jogada);
 		
 		clear();
+
+		String texto = jogada.getResultado();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Objeto salvo com sucesso!", ""));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Resultado do jogo: ", texto));
 		
 		return null;
 	}
