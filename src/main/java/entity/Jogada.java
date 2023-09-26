@@ -25,7 +25,7 @@ public class Jogada {
 	private Integer papel = 0;
 	private Integer pedra = 0;
 	private Integer tesoura = 0;
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "DATE")
 	private Date dataJogo = new Date();
 	
