@@ -73,188 +73,85 @@ public class JogadaBean {
 	public String salvar() throws Exception{
 		//papel = 0   
 		//pedra = 1
-		//tesoura = 2
-		try {
-			JogadaDao.salvar(jogada);
-			
-			if(jogada.getJogada1() != null) {
-				Jogada jogo = JogadaDao.buscarPorId(jogada.getId()-1);
-								
-				jogo.setPedra(0);
-				jogo.setPapel(0);
-				jogo.setTesoura(0);
-				
-				Random random = new Random();
-				int jogadaEspelho1 = random.nextInt(3);
-				int jogadaEspelho2 = random.nextInt(3);
-				
-				if(jogadaEspelho1==0&&jogadaEspelho2==0) {
-					jogada.setResultado("Empate");
-				}else if(jogadaEspelho1==1&&jogadaEspelho2==1) {
-					jogada.setResultado("Empate");
-				} else if(jogadaEspelho1==2&&jogadaEspelho2==2) {
-					jogada.setResultado("Empate");
-				} else if(jogadaEspelho1==0&&jogadaEspelho2==1) {
-					jogada.setResultado(jogada.getJogador1());
-				} else if(jogadaEspelho1==0&&jogadaEspelho2==2) {
-					jogada.setResultado(jogada.getJogador2());
-				} else if(jogadaEspelho1==1&&jogadaEspelho2==0) {
-					jogada.setResultado(jogada.getJogador2());
-				} else if(jogadaEspelho1==1&&jogadaEspelho2==2) {
-					jogada.setResultado(jogada.getJogador1());
-				} else if(jogadaEspelho1==2&&jogadaEspelho2==0) {
-					jogada.setResultado(jogada.getJogador1());
-				} else if(jogadaEspelho1==2&&jogadaEspelho2==1) {
-					jogada.setResultado(jogada.getJogador2());
-				}
-						
-				Integer pedra=0;
-				Integer papel=0;
-				Integer tesoura=0;
-							
-				switch(jogadaEspelho1) {
-				 case 0:
-					 jogada.setJogada1("Papel");
-					 papel++;
-					 jogada.setPedra(jogo.getPedra());
-					 jogada.setTesoura(jogo.getTesoura());
-					 break;
-				 case 1:
-					 jogada.setJogada1("Pedra");
-					 jogada.setPapel(jogo.getPapel());
-					 pedra++;
-					 jogada.setTesoura(jogo.getTesoura());
-					 break;
-				 case 2:
-					 jogada.setJogada1("Tesoura");
-					 jogada.setPapel(jogo.getPapel());
-					 jogada.setPedra(jogo.getPedra());
-					 tesoura++;
-					 break;
-				 default:
-					 jogada.setJogada1(null);
-					 System.out.println("invalid result");
-				}
-				
-				switch(jogadaEspelho2) {
-				 case 0:
-					 jogada.setJogada2("Papel");
-					 papel++;
-					 jogada.setPedra(jogo.getPedra());
-					 jogada.setTesoura(jogo.getTesoura());
-					 break;
-				 case 1:
-					 jogada.setJogada2("Pedra");
-					 jogada.setPapel(jogo.getPapel());
-					 pedra++;
-					 jogada.setTesoura(jogo.getTesoura());
-					 break;
-				 case 2:
-					 jogada.setJogada2("Tesoura");
-					 jogada.setPapel(jogo.getPapel());
-					 jogada.setPedra(jogo.getPedra());
-					 tesoura++;
-					 break;
-				 default:
-					 jogada.setJogada2(null);
-					 System.out.println("invalid result");
-				}
-				
-				jogada.setPedra(jogo.getPedra()+pedra);
-				jogada.setPapel(jogo.getPapel()+papel);
-				jogada.setTesoura(jogo.getTesoura()+tesoura);
-				
-				JogadaDao.editar(jogada);
-				
-				String texto = jogada.getResultado();
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Objeto salvo com sucesso!", ""));
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Resultado do jogo: ", texto));
-								
-			} else if(jogada.getJogada1() == null) {
-				
-				Random random = new Random();
-				int jogadaEspelho1 = random.nextInt(3);
-				int jogadaEspelho2 = random.nextInt(3);
-				
-				if(jogadaEspelho1==0&&jogadaEspelho2==0) {
-					jogada.setResultado("Empate");
-				}else if(jogadaEspelho1==1&&jogadaEspelho2==1) {
-					jogada.setResultado("Empate");
-				} else if(jogadaEspelho1==2&&jogadaEspelho2==2) {
-					jogada.setResultado("Empate");
-				} else if(jogadaEspelho1==0&&jogadaEspelho2==1) {
-					jogada.setResultado(jogada.getJogador1());
-				} else if(jogadaEspelho1==0&&jogadaEspelho2==2) {
-					jogada.setResultado(jogada.getJogador2());
-				} else if(jogadaEspelho1==1&&jogadaEspelho2==0) {
-					jogada.setResultado(jogada.getJogador2());
-				} else if(jogadaEspelho1==1&&jogadaEspelho2==2) {
-					jogada.setResultado(jogada.getJogador1());
-				} else if(jogadaEspelho1==2&&jogadaEspelho2==0) {
-					jogada.setResultado(jogada.getJogador1());
-				} else if(jogadaEspelho1==2&&jogadaEspelho2==1) {
-					jogada.setResultado(jogada.getJogador2());
-				}
-				
-				Integer pedra=0;
-				Integer papel=0;
-				Integer tesoura=0;
-							
-				switch(jogadaEspelho1) {
-				 case 0:
-					 jogada.setJogada1("Papel");
-					 papel++;
-					 break;
-				 case 1:
-					 jogada.setJogada1("Pedra");
-					 pedra++;
-					 break;
-				 case 2:
-					 jogada.setJogada1("Tesoura");
-					 tesoura++;
-					 break;
-				 default:
-					 jogada.setJogada1(null);
-					 System.out.println("invalid result");
-				}
-				
-				switch(jogadaEspelho2) {
-				 case 0:
-					 jogada.setJogada2("Papel");
-					 papel++;
-					 break;
-				 case 1:
-					 jogada.setJogada2("Pedra");
-					 pedra++;
-					 break;
-				 case 2:
-					 jogada.setJogada2("Tesoura");
-					 tesoura++;
-					 break;
-				 default:
-					 jogada.setJogada2(null);
-					 System.out.println("invalid result");
-				}
-				
-				jogada.setPedra(pedra);
-				jogada.setPapel(papel);
-				jogada.setTesoura(tesoura);
-				
-				JogadaDao.editar(jogada);
-				clear();
-				
-				String texto = jogada.getResultado();
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Objeto salvo com sucesso!", ""));
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Resultado do jogo: ", texto));
-			} else {
-				System.out.println("ERRO! Id é zero ou nulo.");
-			}
-			clear();
-			return null;
-			
-		}catch(Exception e) {
-			throw e;
+		//tesoura = 2		
+		
+		Integer pedra=0;
+		Integer papel=0;
+		Integer tesoura=0;
+		
+		Random random = new Random();
+		int jogadaEspelho1 = random.nextInt(3);
+		int jogadaEspelho2 = random.nextInt(3);
+		
+		if(jogadaEspelho1==0&&jogadaEspelho2==0) {
+			jogada.setResultado("Empate");
+			jogada.setJogada1("Papel");
+			jogada.setJogada2("Papel");
+			papel++;
+			papel++;
+		}else if(jogadaEspelho1==1&&jogadaEspelho2==1) {
+			jogada.setResultado("Empate");
+			jogada.setJogada1("Pedra");
+			jogada.setJogada2("Pedra");
+			pedra++;
+			pedra++;
+		} else if(jogadaEspelho1==2&&jogadaEspelho2==2) {
+			jogada.setResultado("Empate");
+			jogada.setJogada1("Tesoura");
+			jogada.setJogada2("Tesoura");
+			tesoura++;
+			tesoura++;
+		} else if(jogadaEspelho1==0&&jogadaEspelho2==1) {
+			jogada.setResultado(jogada.getJogador1());
+			jogada.setJogada1("Papel");
+			jogada.setJogada2("Pedra");
+			papel++;
+			pedra++;
+		} else if(jogadaEspelho1==0&&jogadaEspelho2==2) {
+			jogada.setResultado(jogada.getJogador2());
+			jogada.setJogada1("Papel");
+			jogada.setJogada2("Tesoura");
+			tesoura++;
+			pedra++;
+		} else if(jogadaEspelho1==1&&jogadaEspelho2==0) {
+			jogada.setResultado(jogada.getJogador2());
+			jogada.setJogada1("Pedra");
+			jogada.setJogada2("Papel");
+			papel++;
+			pedra++;
+		} else if(jogadaEspelho1==1&&jogadaEspelho2==2) {
+			jogada.setResultado(jogada.getJogador1());
+			jogada.setJogada1("Pedra");
+			jogada.setJogada2("Tesoura");
+			pedra++;
+			tesoura++;
+		} else if(jogadaEspelho1==2&&jogadaEspelho2==0) {
+			jogada.setResultado(jogada.getJogador1());
+			jogada.setJogada1("Tesoura");
+			jogada.setJogada2("Papel");
+			tesoura++;
+			papel++;
+		} else if(jogadaEspelho1==2&&jogadaEspelho2==1) {
+			jogada.setResultado(jogada.getJogador2());
+			jogada.setJogada1("Tesoura");
+			jogada.setJogada2("Pedra");
+			pedra++;
+			tesoura++;
 		}
+		
+		JogadaDao.salvar(jogada);
+		
+		Jogada jogo = JogadaDao.buscarPorId(jogada.getId()-1);
+		System.out.println("id: "+jogo.getId()+"jogada1: "+jogo.getJogada1()+"Jogador1: "+jogo.getJogador1());
+		jogada.setPedra(jogo.getPedra()+pedra);
+		jogada.setPapel(jogo.getPapel()+papel);
+		jogada.setTesoura(jogo.getTesoura()+tesoura);
+		
+		JogadaDao.editar(jogada);
+		
+		clear();
+		
+		return null;
 	}
 	
 	public String deletar() throws Exception {
@@ -265,17 +162,6 @@ public class JogadaBean {
 		}catch(Exception e) {
 			throw e;
 		}
-	}
-	
-	public void ligaCampo(Boolean edit) {
-		inputEdit = edit;
-	}
-	
-	public String botaoEditar() throws Exception {
-		System.out.println("CAMPOS DE INPUT: "+jogadorEspelho1+" "+jogadorEspelho1);
-		System.out.println("botão editar: "+jogada.getJogador1()+ " e "+jogada.getJogador2());
-		ligaCampo(true);
-		return null;
 	}
 	
 	public String editar(Jogada jogada) throws Exception {
@@ -310,17 +196,5 @@ public class JogadaBean {
 	}
 	public void setInputEdit(Boolean inputEdit) {
 		this.inputEdit = inputEdit;
-	}
-	public String getJogadorEspelho1() {
-		return jogadorEspelho1;
-	}
-	public void setJogadorEspelho1(String jogadorEspelho1) {
-		this.jogadorEspelho1 = jogadorEspelho1;
-	}
-	public String getJogadorEspelho2() {
-		return jogadorEspelho2;
-	}
-	public void setJogadorEspelho2(String jogadorEspelho2) {
-		this.jogadorEspelho2 = jogadorEspelho2;
 	}
 }
