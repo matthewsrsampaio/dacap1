@@ -74,5 +74,47 @@ public class JogadaDao {
 			em.close();
 		}
 	}
+	
+	public static Long buscarSomaPapel() throws Exception {
+	    EntityManager em = Jpa.criarEntityManager();
+	    try {
+	        Query query = em.createQuery("SELECT SUM(j.papel) FROM Jogada j");
+	        Long somaPapel = (Long) query.getSingleResult();
+	        System.out.println(somaPapel);
+	        return somaPapel != null ? somaPapel : 0; // Retorna 0.0 se a soma for nula
+	    } catch (Exception e) {
+	        throw e;
+	    } finally {
+	        em.close();
+	    }
+	}
+
+	public static Long buscarSomaPedra() throws Exception {
+	    EntityManager em = Jpa.criarEntityManager();
+	    try {
+	        Query query = em.createQuery("SELECT SUM(j.pedra) FROM Jogada j");
+	        Long somaPedra = (Long) query.getSingleResult();
+	        System.out.println(somaPedra);
+	        return somaPedra != null ? somaPedra : 0; // Retorna 0.0 se a soma for nula
+	    } catch (Exception e) {
+	        throw e;
+	    } finally {
+	        em.close();
+	    }
+	}
+	
+	public static Long buscarSomaTesoura() throws Exception {
+	    EntityManager em = Jpa.criarEntityManager();
+	    try {
+	        Query query = em.createQuery("SELECT SUM(j.tesoura) FROM Jogada j");
+	        Long somaTesoura = (Long) query.getSingleResult();
+	        System.out.println(somaTesoura);
+	        return somaTesoura != null ? somaTesoura : 0; // Retorna 0.0 se a soma for nula
+	    } catch (Exception e) {
+	        throw e;
+	    } finally {
+	        em.close();
+	    }
+	}
 
 }

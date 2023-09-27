@@ -1,6 +1,5 @@
 package bean;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -17,15 +16,13 @@ import entity.Jogada;
 //@ApplicationScoped
 //@SessionScoped
 //@RequestScoped
-@ViewScoped
+//@ViewScoped
 @ManagedBean
 public class JogadaBean {
 	
 	private Jogada jogada = new Jogada();
 	private List<Jogada> listaJogador;
 	private Boolean inputEdit = false;
-	private String jogadorEspelho1;
-	private String jogadorEspelho2;
 	
 	public void onRowEdit(RowEditEvent<Jogada> event) {
 		try {
@@ -64,8 +61,6 @@ public class JogadaBean {
 		try {
 			jogada.setJogador1(null);
 			jogada.setJogador2(null);
-			jogadorEspelho1 = null;
-			jogadorEspelho2 = null;
 		}catch(Exception e) {
 			throw e;
 		}
@@ -140,16 +135,11 @@ public class JogadaBean {
 			tesoura++;
 		}
 		
+		jogada.setPapel(papel);
+		jogada.setPedra(pedra);
+		jogada.setTesoura(tesoura);
+		
 		JogadaDao.salvar(jogada);
-		
-		Jogada jogo = JogadaDao.buscarPorId(jogada.getId()-1);
-		
-		System.out.println("id: "+jogo.getId()+"jogada1: "+jogo.getJogada1()+"Jogador1: "+jogo.getJogador1());
-		jogada.setPedra(jogo.getPedra()+pedra);
-		jogada.setPapel(jogo.getPapel()+papel);
-		jogada.setTesoura(jogo.getTesoura()+tesoura);
-		
-		JogadaDao.editar(jogada);
 		
 		clear();
 
@@ -179,6 +169,28 @@ public class JogadaBean {
 		}catch(Exception e) {
 			throw e;
 		}
+	}
+	
+	public Long buscarSomaPapel() throws Exception {
+		return JogadaDao.buscarSomaPapel();
+	}
+	
+	public Long buscarSomaPedra() throws Exception {
+		return JogadaDao.buscarSomaPedra();
+	}
+	
+	public Long buscarSomaTesoura() throws Exception {
+		return JogadaDao.buscarSomaTesoura();
+	}
+	
+	public String mostrarSomatorio() throws Exception {
+		try {
+			String msg = "Papel: "+buscarSomaPapel().toString()+", Pedra: "+buscarSomaPedra().toString()+", Tesoura: "+buscarSomaTesoura().toString()+".";
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Somatório das saídas -> ", msg));
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	//GETTERS AND SETTERS
