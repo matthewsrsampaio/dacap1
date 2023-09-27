@@ -81,7 +81,7 @@ public class JogadaDao {
 	        Query query = em.createQuery("SELECT SUM(j.papel) FROM Jogada j");
 	        Long somaPapel = (Long) query.getSingleResult();
 	        System.out.println(somaPapel);
-	        return somaPapel != null ? somaPapel : 0; // Retorna 0.0 se a soma for nula
+	        return somaPapel != null ? somaPapel : 0;
 	    } catch (Exception e) {
 	        throw e;
 	    } finally {
@@ -95,7 +95,7 @@ public class JogadaDao {
 	        Query query = em.createQuery("SELECT SUM(j.pedra) FROM Jogada j");
 	        Long somaPedra = (Long) query.getSingleResult();
 	        System.out.println(somaPedra);
-	        return somaPedra != null ? somaPedra : 0; // Retorna 0.0 se a soma for nula
+	        return somaPedra != null ? somaPedra : 0;
 	    } catch (Exception e) {
 	        throw e;
 	    } finally {
@@ -109,7 +109,7 @@ public class JogadaDao {
 	        Query query = em.createQuery("SELECT SUM(j.tesoura) FROM Jogada j");
 	        Long somaTesoura = (Long) query.getSingleResult();
 	        System.out.println(somaTesoura);
-	        return somaTesoura != null ? somaTesoura : 0; // Retorna 0.0 se a soma for nula
+	        return somaTesoura != null ? somaTesoura : 0;
 	    } catch (Exception e) {
 	        throw e;
 	    } finally {

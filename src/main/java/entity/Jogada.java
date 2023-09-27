@@ -27,7 +27,7 @@ public class Jogada {
 	private Integer tesoura = 0;
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "DATE")
-	private Date dataJogo = new Date();
+	private Date data = new Date();
 	
 	public Integer getId() {
 		return id;
@@ -65,11 +65,11 @@ public class Jogada {
 	public void setResultado(String resultado) {
 		this.resultado = resultado;
 	}
-	public Date getDataJogo() {
-		return dataJogo;
+	public Date getData() {
+		return data;
 	}
-	public void setDataJogo(Date dataJogo) {
-		this.dataJogo = dataJogo;
+	public void setData(Date data) {
+		this.data = data;
 	}
 	public Integer getPapel() {
 		return papel;

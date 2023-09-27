@@ -5,7 +5,6 @@ import java.util.Random;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.RowEditEvent;
@@ -44,18 +43,7 @@ public class JogadaBean {
     public void onRowCancel(RowEditEvent<Jogada> event) {
         FacesMessage msg = new FacesMessage("Edição cancelada: ", String.valueOf(event.getObject().getJogador1() + " e " + event.getObject().getJogador2()));
         FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-    
-//    public void onCellEdit(CellEditEvent<Jogada> event) {
-//        Object oldValue = event.getOldValue();
-//        Object newValue = event.getNewValue();
-//
-//        if (newValue != null && !newValue.equals(oldValue)) {
-//            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
-//            FacesContext.getCurrentInstance().addMessage(null, msg);
-//        }
-//    }
-	
+    }	
 	
 	public void clear() throws Exception{
 		try {
@@ -164,7 +152,6 @@ public class JogadaBean {
 		try {
 			JogadaDao.editar(jogada);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, null, "Objeto editado com sucesso!"));
-//			return null;
 			return String.valueOf(jogada);
 		}catch(Exception e) {
 			throw e;
