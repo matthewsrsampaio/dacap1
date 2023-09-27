@@ -6,6 +6,7 @@ import java.util.Random;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.RowEditEvent;
@@ -16,12 +17,12 @@ import entity.Jogada;
 //@ApplicationScoped
 //@SessionScoped
 //@RequestScoped
-//@ViewScoped
+@ViewScoped
 @ManagedBean
 public class JogadaBean {
 	
 	private Jogada jogada = new Jogada();
-	private List<Jogada> listaJogador = new ArrayList<Jogada>();
+	private List<Jogada> listaJogador;
 	private Boolean inputEdit = false;
 	private String jogadorEspelho1;
 	private String jogadorEspelho2;
@@ -142,6 +143,7 @@ public class JogadaBean {
 		JogadaDao.salvar(jogada);
 		
 		Jogada jogo = JogadaDao.buscarPorId(jogada.getId()-1);
+		
 		System.out.println("id: "+jogo.getId()+"jogada1: "+jogo.getJogada1()+"Jogador1: "+jogo.getJogador1());
 		jogada.setPedra(jogo.getPedra()+pedra);
 		jogada.setPapel(jogo.getPapel()+papel);
@@ -187,7 +189,7 @@ public class JogadaBean {
 		this.jogada = jogada;
 	}
 	public List<Jogada> getListaJogador() throws Exception {
-		if(listaJogador != null ) {
+		if(listaJogador == null ) {
 			listaJogador = JogadaDao.buscarTodos();
 		}
 		return listaJogador;

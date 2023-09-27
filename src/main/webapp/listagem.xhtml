@@ -14,14 +14,14 @@
 		<div style="display: flex; justify-content: center; margin-bottom: 25px">
 			<p:commandButton onclick="window.location.href = 'index.xhtml'" value="Go HOME"/>
 		</div>
-		<p:messages id="messageDeleteUpdate" showDetail="true" closable="true" style="justify-content:center; display:flex">
-			<p:autoUpdate/>
-		</p:messages>
 		<h:form id="form">
+			<p:messages id="messageDeleteUpdate" showDetail="true" closable="true" style="justify-content:center; display:flex">
+				<p:autoUpdate/>
+			</p:messages>
 			<p:panel id="listagemPanel" header="Listagem" style="justify-content: center; font-size:60px; position:relative; text-align: center;">
-				<p:dataTable id="listaTabela" value="#{jogadaBean.listaJogador}" var="lis" rowKey="#{lis.id}" style="width: 90%; height: 70%;" selectionMode="single" editable="true">
-					<p:ajax event="rowEdit" listener="#{jogadaBean.onRowEdit}" update="listaTabela"/>
-            		<p:ajax event="rowEditCancel" listener="#{jogadaBean.onRowCancel}" update="listaTabela"/>
+				<p:dataTable id="listaTabela" value="#{jogadaBean.listaJogador}" var="lis" rowKey="#{lis.id}" selectionMode="single" style="width: 90%; height: 70%;" editable="true">
+					<p:ajax event="rowEdit" listener="#{jogadaBean.onRowEdit}" update=":form:listaTabela"/>
+            		<p:ajax event="rowEditCancel" listener="#{jogadaBean.onRowCancel}" update=":form:listaTabela"/>
 					<p:column>
 						<p:outputLabel value="pedra: #{lis.pedra}"/><br/>
 						<p:outputLabel value="papel: #{lis.papel}"/><br/>
@@ -36,7 +36,7 @@
 		                        <h:outputText value="#{lis.jogador1}"/>
 		                    </f:facet>
 		                    <f:facet name="input">
-		                        <p:inputText id="modelInput" value="#{lis.jogador1}" label="jogador1"/>
+		                        <p:inputText id="modelInput" value="#{lis.jogador1}"/>
 		                    </f:facet>
 		                </p:cellEditor>
 		            </p:column>		
@@ -46,7 +46,7 @@
 		                        <h:outputText value="#{lis.jogador2}"/>
 		                    </f:facet>
 		                    <f:facet name="input">
-		                        <p:inputText value="#{lis.jogador2}" label="jogador2"/>
+		                        <p:inputText value="#{lis.jogador2}"/>
 		                    </f:facet>
 		                </p:cellEditor>
 		            </p:column>
@@ -66,9 +66,9 @@
 						<p:rowEditor editTitle="botaoEditor" cancelTitle="cancelaEditar" saveTitle="salvarEditar"/>
 					</p:column>	
 					<p:column headerText="Deletar">
-						<p:commandButton action="#{jogadaBean.deletar()}" icon="pi pi-times" styleClass="rounded-button ui-button-danger" update="listaTabela">
-							<f:setPropertyActionListener value="#{lis}" target="#{jogadaBean.jogada}"/>
-						</p:commandButton>
+					<p:commandButton action="#{jogadaBean.deletar()}" icon="pi pi-times" styleClass="rounded-button ui-button-danger" update="listaTabela">
+						<f:setPropertyActionListener value="#{lis}" target="#{jogadaBean.jogada}"/>
+					</p:commandButton>
 					</p:column>				
 				</p:dataTable>
 			</p:panel>
