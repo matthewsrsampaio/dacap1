@@ -24,7 +24,6 @@ public class JogadaBean {
 		jogada.setJogador1(String.valueOf(event.getObject().getJogador1()));
 		jogada.setJogador2(String.valueOf(event.getObject().getJogador2()));
 		JogadaDao.editar(jogada);
-		
 	    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Jogadores Editados: ", String.valueOf(event.getObject().getJogador1() + " e " + event.getObject().getJogador2())));
     }
 	
@@ -79,7 +78,7 @@ public class JogadaBean {
 				jogada.setJogada1("Papel");
 				jogada.setJogada2("Tesoura");
 				tesoura++;
-				pedra++;
+				papel++;
 			} else if(jogadaEspelho1==1&&jogadaEspelho2==0) {
 				jogada.setResultado(jogada.getJogador2());
 				jogada.setJogada1("Pedra");
@@ -124,6 +123,7 @@ public class JogadaBean {
 	
 	public String deletar() {
 		try {
+			listaJogador = JogadaDao.buscarTodos();
 			JogadaDao.deletar(jogada);
 			listaJogador = JogadaDao.buscarTodos();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, null, "Objeto excluído com sucesso!"));
