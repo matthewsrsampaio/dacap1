@@ -62,7 +62,7 @@
 						<p:rowEditor editTitle="botaoEditor" cancelTitle="cancelaEditar" saveTitle="salvarEditar"/>
 					</p:column>	
 					<p:column headerText="Deletar">
-					<p:commandButton action="#{jogadaBean.deletar()}" icon="pi pi-times" styleClass="rounded-button ui-button-danger" update="listaTabela">
+					<p:commandButton type="submit" action="#{jogadaBean.deletar()}" icon="pi pi-times" styleClass="rounded-button ui-button-danger" update="form">
 						<f:setPropertyActionListener value="#{lis}" target="#{jogadaBean.jogada}"/>
 					</p:commandButton>
 					</p:column>				

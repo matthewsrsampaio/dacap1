@@ -14,13 +14,13 @@
 		<div style="display: flex; justify-content: center; margin-bottom: 25px">
 			<p:commandButton onclick="window.location.href = 'listagem.xhtml'" value="Go Listagem" styleClass="ui-button-warning"/>
 		</div>
-		<p:messages id="messageIndex" showDetail="true" closable="true">
+		<p:messages id="messageIndex" closable="true">
 				<p:autoUpdate/>
 		</p:messages>
-		<h:form>
+		<h:form id="indexForm">
 			<div style="display: flex; justify-content: center;">
 				<p:panel id="jogadaPanel" header="Jogada" style="justify-content: center; font-size:40px">
-					<p:panelGrid columns="2">
+					<p:panelGrid id="panel" columns="2">
 						<p:outputLabel value="Jogador 1" id="joqador1Label"></p:outputLabel>
 						<p:inputText id="jogador1Input" value="#{jogadaBean.jogada.jogador1}"/>
 						<p:outputLabel value="Jogador 2" id="joqador2Label"></p:outputLabel>

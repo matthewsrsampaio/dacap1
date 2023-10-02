@@ -17,29 +17,26 @@ public class JogadaBean {
 	
 	private Jogada jogada = new Jogada();
 	private List<Jogada> listaJogador;
-	private Boolean inputEdit = false;
 	
 	public void onRowEdit(RowEditEvent<Jogada> event) throws Exception {
-			Jogada jogada = JogadaDao.buscarPorId(event.getObject().getId());
+		Jogada jogada = JogadaDao.buscarPorId(event.getObject().getId());
+	
+		jogada.setJogador1(String.valueOf(event.getObject().getJogador1()));
+		jogada.setJogador2(String.valueOf(event.getObject().getJogador2()));
+		JogadaDao.editar(jogada);
 		
-			jogada.setJogador1(String.valueOf(event.getObject().getJogador1()));
-			jogada.setJogador2(String.valueOf(event.getObject().getJogador2()));
-			JogadaDao.editar(jogada);
-			
-	        FacesMessage msg = new FacesMessage("Jogadores Editados: ", String.valueOf(event.getObject().getJogador1() + " e " + event.getObject().getJogador2()));
-	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Jogadores Editados: ", String.valueOf(event.getObject().getJogador1() + " e " + event.getObject().getJogador2())));
     }
 	
     public void onRowCancel(RowEditEvent<Jogada> event) throws Exception {
-        FacesMessage msg = new FacesMessage("Edição cancelada: ", String.valueOf(event.getObject().getJogador1() + " e " + event.getObject().getJogador2()));
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Edição cancelada: ", String.valueOf(event.getObject().getJogador1() + " e " + event.getObject().getJogador2())));
     }	
 	
 	public void clear() throws Exception{
-			jogada.setJogador1(null);
-			jogada.setJogador2(null);
+		jogada.setJogador1(null);
+		jogada.setJogador2(null);
     }
-	
+    
 	public String salvar() {
 		//papel = 0   
 		//pedra = 1
@@ -116,12 +113,9 @@ public class JogadaBean {
 			JogadaDao.salvar(jogada);
 			
 			clear();
-		
-			String texto = jogada.getResultado();
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Objeto salvo com sucesso!", ""));
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Resultado do jogo: ", texto));
 			
-			return null;
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Objeto salvo com sucesso!", ""));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Resultado do jogo: "+jogada.getResultado(), null));
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -131,23 +125,21 @@ public class JogadaBean {
 	public String deletar() {
 		try {
 			JogadaDao.deletar(jogada);
+			listaJogador = JogadaDao.buscarTodos();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, null, "Objeto excluído com sucesso!"));
-			return null;
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
-	public String editar(Jogada jogada) {
+	public void editar(Jogada jogada) {
 		try {
 			JogadaDao.editar(jogada);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, null, "Objeto editado com sucesso!"));
-			return String.valueOf(jogada);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return null;
 	}
 	
 	public Long buscarSomaPapel() throws Exception {
@@ -163,8 +155,7 @@ public class JogadaBean {
 	}
 	
 	public void mostrarSomatorio() throws Exception {
-			String msg = "Papel: "+buscarSomaPapel().toString()+", Pedra: "+buscarSomaPedra().toString()+", Tesoura: "+buscarSomaTesoura().toString()+".";
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Somatório das saídas -> ", msg));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Somatório das saídas -> ", "Papel: "+buscarSomaPapel().toString()+", Pedra: "+buscarSomaPedra().toString()+", Tesoura: "+buscarSomaTesoura().toString()+"."));
 	}
 	
 	//GETTERS AND SETTERS
@@ -175,18 +166,10 @@ public class JogadaBean {
 		this.jogada = jogada;
 	}
 	public List<Jogada> getListaJogador() throws Exception {
-		if(listaJogador == null ) {
-			listaJogador = JogadaDao.buscarTodos();
-		}
+		listaJogador = (listaJogador==null) ? listaJogador = JogadaDao.buscarTodos():listaJogador;
 		return listaJogador;
 	}
 	public void setListaJogador(List<Jogada> listaJogador) {
 		this.listaJogador = listaJogador;
-	}
-	public Boolean getInputEdit() {
-		return inputEdit;
-	}
-	public void setInputEdit(Boolean inputEdit) {
-		this.inputEdit = inputEdit;
 	}
 }
