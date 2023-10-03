@@ -12,7 +12,7 @@
 		<title>Listagem</title>
 	</h:head>
 	<h:body>
-		<div id="btnGoHome">
+		<div id="btnGoHome" style="text-align:center;">
 			<p:commandButton onclick="window.location.href = 'index.xhtml'" value="Go HOME"/>
 		</div>
 		<p:messages id="message" showDetail="true" closable="true">
@@ -21,13 +21,13 @@
 		<h:form id="form">
 			<p:commandButton action="#{jogadaBean.mostrarSomatorio()}" value="Somatório" styleClass="ui-button-warning" update=":form"/>
 			<p:panel id="panel" header="Listagem" style="font-size: 40px; text-align:center;">
-				<p:dataTable id="tabela" value="#{jogadaBean.listaJogador}" var="lis" rowKey="#{lis.id}" selectionMode="single" editable="true">
+				<p:dataTable id="tabela" value="#{jogadaBean.listaJogador}" var="lis" rowKey="#{lis.id}" selectionMode="single" editable="true" style="text-align:center;">
 					<p:ajax event="rowEdit" listener="#{jogadaBean.onRowEdit}" update=":form:tabela" process="@this"/>
 					<p:ajax event="rowEditCancel" listener="#{jogadaBean.onRowCancel}" update=":form:tabela"/>
-					<p:column id="idColumn" headerText="ID">
+					<p:column id="idColumn" headerText="ID" style="text-align:center;">
 						<p:outputLabel id="idOutput" value="#{lis.id}"/>
 					</p:column>
-					<p:column headerText="Jogador 1">
+					<p:column headerText="Jogador 1" style="text-align:center;">
 		                <p:cellEditor>
 		                    <f:facet name="output">
 		                        <h:outputText value="#{lis.jogador1}"/>
@@ -37,7 +37,7 @@
 		                    </f:facet>
 		                </p:cellEditor>
 		            </p:column>		
-		            <p:column headerText="Jogador 2">
+		            <p:column headerText="Jogador 2" style="text-align:center;">
 		                <p:cellEditor>
 		                    <f:facet name="output">
 		                        <h:outputText value="#{lis.jogador2}"/>
@@ -47,22 +47,22 @@
 		                    </f:facet>
 		                </p:cellEditor>
 		            </p:column>
-					<p:column headerText="Jogada 1">
+					<p:column headerText="Jogada 1" style="text-align:center;">
 						<p:outputLabel value="#{lis.jogada1}"/>
 					</p:column>
-					<p:column headerText="Jogada 2">
+					<p:column headerText="Jogada 2" style="text-align:center;">
 						<p:outputLabel value="#{lis.jogada2}"/>
 					</p:column>
-					<p:column headerText="Resultado">
+					<p:column headerText="Resultado" style="text-align:center;">
 						<p:outputLabel value="#{lis.resultado}"/>
 					</p:column>
-					<p:column headerText="Data">
+					<p:column headerText="Data" style="text-align:center;">
 						<p:outputLabel value="#{lis.data}"/>
 					</p:column>		
-					<p:column headerText="Editar">
+					<p:column headerText="Editar" style="text-align:center;">
 						<p:rowEditor editTitle="botaoEditor" cancelTitle="cancelaEditar" saveTitle="salvarEditar"/>
 					</p:column>	
-					<p:column headerText="Deletar">
+					<p:column headerText="Deletar" style="text-align:center;">
 					<p:commandButton type="submit" action="#{jogadaBean.deletar()}" icon="pi pi-times" styleClass="rounded-button ui-button-danger" update="form">
 						<f:setPropertyActionListener value="#{lis}" target="#{jogadaBean.jogada}"/>
 					</p:commandButton>
