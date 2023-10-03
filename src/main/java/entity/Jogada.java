@@ -10,6 +10,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Table(name = "jogada")
 public class Jogada {
@@ -25,6 +27,7 @@ public class Jogada {
 	private Integer papel = 0;
 	private Integer pedra = 0;
 	private Integer tesoura = 0;
+	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "DATE")
 	private Date data = new Date();

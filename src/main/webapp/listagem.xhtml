@@ -8,21 +8,22 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<h:head>
+		<link rel="stylesheet" href="./estilo.css" type="text/css"/>
 		<title>Listagem</title>
 	</h:head>
 	<h:body>
-		<div style="display: flex; justify-content: center; margin-bottom: 25px">
+		<div id="btnGoHome">
 			<p:commandButton onclick="window.location.href = 'index.xhtml'" value="Go HOME"/>
 		</div>
+		<p:messages id="message" showDetail="true" closable="true">
+			<p:autoUpdate/>
+		</p:messages>
 		<h:form id="form">
-			<p:messages id="message" showDetail="true" closable="true">
-				<p:autoUpdate/>
-			</p:messages>
-			<p:commandButton action="#{jogadaBean.mostrarSomatorio()}" value="Somatório" styleClass="ui-button-warning" update=":form" style="margin-bottom: 5px;"/>
-			<p:panel id="listagemPanel" header="Listagem" style="justify-content: center; font-size:60px; position:relative; text-align: center;">
-				<p:dataTable id="listaTabela" value="#{jogadaBean.listaJogador}" var="lis" rowKey="#{lis.id}" selectionMode="single" style="width: 90%; height: 70%;" editable="true">
-					<p:ajax event="rowEdit" listener="#{jogadaBean.onRowEdit}" update=":form:listaTabela"/>
-            		<p:ajax event="rowEditCancel" listener="#{jogadaBean.onRowCancel}" update=":form:listaTabela"/>
+			<p:commandButton action="#{jogadaBean.mostrarSomatorio()}" value="Somatório" styleClass="ui-button-warning" update=":form"/>
+			<p:panel id="panel" header="Listagem" style="font-size: 40px; text-align:center;">
+				<p:dataTable id="tabela" value="#{jogadaBean.listaJogador}" var="lis" rowKey="#{lis.id}" selectionMode="single" editable="true">
+					<p:ajax event="rowEdit" listener="#{jogadaBean.onRowEdit}" update=":form:tabela" process="@this"/>
+					<p:ajax event="rowEditCancel" listener="#{jogadaBean.onRowCancel}" update=":form:tabela"/>
 					<p:column id="idColumn" headerText="ID">
 						<p:outputLabel id="idOutput" value="#{lis.id}"/>
 					</p:column>

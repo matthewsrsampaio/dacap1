@@ -18,17 +18,57 @@ public class JogadaBean {
 	private Jogada jogada = new Jogada();
 	private List<Jogada> listaJogador;
 	
-	public void onRowEdit(RowEditEvent<Jogada> event) throws Exception {
-		Jogada jogada = JogadaDao.buscarPorId(event.getObject().getId());
+//	public void onCellEdit(CellEditEvent<Jogada> event) throws NumberFormatException, Exception {
+//        Object oldValue = event.getOldValue();
+//        Object newValue = event.getNewValue();
+//
+//        String player1Velho = String.valueOf(event.getOldValue().getJogador1().toString());
+//        String player1Novo = String.valueOf(event.getNewValue().getJogador1().toString());
+//        String player2Velho = String.valueOf(event.getOldValue().getJogador2().toString());
+//        String player2Novo = String.valueOf(event.getNewValue().getJogador2().toString());
+//        Integer id = event.getOldValue().getId();
+//        
+//        Jogada j = JogadaDao.buscarPorId(id);
+//        
+//        System.out.println(player1Novo);
+//        System.out.println(player2Novo);
+//        
+//        if(player1Velho.toString().equals(j.getJogador1().toString())) {
+//        	j.setJogador1(player1Novo.toString());
+//        } else if(player2Velho.toString().equals(j.getJogador2().toString())) {
+//        	j.setJogador2(player2Novo.toString());
+//        }
+//        
+//        System.out.println(j.getJogador1());
+//        System.out.println(j.getJogador2());
+//                
+//        JogadaDao.editar(j);
+//
+//        if (newValue != null && !newValue.equals(oldValue)) {
+//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, ". Célula editada -> Valor antigo: " + oldValue + ", Valor novo:" + newValue));
+//        }
+//    }
 	
+	public List<Jogada> onRowEdit(RowEditEvent<Jogada> event) throws Exception {
+		Jogada jogada = JogadaDao.buscarPorId(event.getObject().getId());
+		
+		if(jogada.getResultado().equals(jogada.getJogador1())) {
+			jogada.setResultado(String.valueOf(event.getObject().getJogador1()));
+		} else if(jogada.getResultado().equals(jogada.getJogador2())) {
+			jogada.setResultado(String.valueOf(event.getObject().getJogador2()));
+		}
+		
 		jogada.setJogador1(String.valueOf(event.getObject().getJogador1()));
 		jogada.setJogador2(String.valueOf(event.getObject().getJogador2()));
+		
 		JogadaDao.editar(jogada);
-	    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Jogadores Editados: ", String.valueOf(event.getObject().getJogador1() + " e " + event.getObject().getJogador2())));
+	    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("ID: " + event.getObject().getId()+"   ->   Jogadores Editados: ", String.valueOf(event.getObject().getJogador1() + " e " + event.getObject().getJogador2())));
+	    
+	    return listaJogador;
     }
 	
     public void onRowCancel(RowEditEvent<Jogada> event) throws Exception {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Edição cancelada: ", String.valueOf(event.getObject().getJogador1() + " e " + event.getObject().getJogador2())));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("ID: " + event.getObject().getId()+"   ->   Edição cancelada: ", String.valueOf(event.getObject().getJogador1() + " e " + event.getObject().getJogador2())));
     }	
 	
 	public void clear() throws Exception{
@@ -68,37 +108,43 @@ public class JogadaBean {
 				tesoura++;
 				tesoura++;
 			} else if(jogadaEspelho1==0&&jogadaEspelho2==1) {
-				jogada.setResultado(jogada.getJogador1());
+				jogada.setResultado("Jogador 1");
+//				jogada.setResultado(jogada.getJogador1());
 				jogada.setJogada1("Papel");
 				jogada.setJogada2("Pedra");
 				papel++;
 				pedra++;
 			} else if(jogadaEspelho1==0&&jogadaEspelho2==2) {
-				jogada.setResultado(jogada.getJogador2());
+				jogada.setResultado("Jogador 2");
+//				jogada.setResultado(jogada.getJogador2());
 				jogada.setJogada1("Papel");
 				jogada.setJogada2("Tesoura");
 				tesoura++;
 				papel++;
 			} else if(jogadaEspelho1==1&&jogadaEspelho2==0) {
-				jogada.setResultado(jogada.getJogador2());
+				jogada.setResultado("Jogador 2");
+//				jogada.setResultado(jogada.getJogador2());
 				jogada.setJogada1("Pedra");
 				jogada.setJogada2("Papel");
 				papel++;
 				pedra++;
 			} else if(jogadaEspelho1==1&&jogadaEspelho2==2) {
-				jogada.setResultado(jogada.getJogador1());
+				jogada.setResultado("Jogador 1");
+//				jogada.setResultado(jogada.getJogador1());
 				jogada.setJogada1("Pedra");
 				jogada.setJogada2("Tesoura");
 				pedra++;
 				tesoura++;
 			} else if(jogadaEspelho1==2&&jogadaEspelho2==0) {
-				jogada.setResultado(jogada.getJogador1());
+				jogada.setResultado("Jogador 1");
+//				jogada.setResultado(jogada.getJogador1());
 				jogada.setJogada1("Tesoura");
 				jogada.setJogada2("Papel");
 				tesoura++;
 				papel++;
 			} else if(jogadaEspelho1==2&&jogadaEspelho2==1) {
-				jogada.setResultado(jogada.getJogador2());
+				jogada.setResultado("Jogador 2");
+//				jogada.setResultado(jogada.getJogador2());
 				jogada.setJogada1("Tesoura");
 				jogada.setJogada2("Pedra");
 				pedra++;
@@ -121,22 +167,19 @@ public class JogadaBean {
 		return null;
 	}
 	
-	public String deletar() {
+	public List<Jogada> deletar() throws Exception {
 		try {
-			listaJogador = JogadaDao.buscarTodos();
 			JogadaDao.deletar(jogada);
-			listaJogador = JogadaDao.buscarTodos();
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, null, "Objeto excluído com sucesso!"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, jogada.getId().toString(), "Objeto excluído com sucesso!"));
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return listaJogador = JogadaDao.buscarTodos();
 	}
 	
 	public void editar(Jogada jogada) {
 		try {
 			JogadaDao.editar(jogada);
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, null, "Objeto editado com sucesso!"));
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
