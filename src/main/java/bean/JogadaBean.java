@@ -5,6 +5,7 @@ import java.util.Random;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.RowEditEvent;
@@ -13,6 +14,7 @@ import dao.JogadaDao;
 import entity.Jogada;
 
 @ManagedBean
+@ViewScoped
 public class JogadaBean {
 	
 	private Jogada jogada = new Jogada();
@@ -49,22 +51,20 @@ public class JogadaBean {
 //        }
 //    }
 	
-	public List<Jogada> onRowEdit(RowEditEvent<Jogada> event) throws Exception {
-		Jogada jogada = JogadaDao.buscarPorId(event.getObject().getId());
+	public void onRowEdit(RowEditEvent<Jogada> event) throws Exception {
+//		Jogada jogada = JogadaDao.buscarPorId(event.getObject().getId());
+//		
+//		if(jogada.getResultado().equals(jogada.getJogador1())) {
+//			jogada.setResultado(String.valueOf(event.getObject().getJogador1()));
+//		} else if(jogada.getResultado().equals(jogada.getJogador2())) {
+//			jogada.setResultado(String.valueOf(event.getObject().getJogador2()));
+//		}
+//		
+//		jogada.setJogador1(String.valueOf(event.getObject().getJogador1()));
+//		jogada.setJogador2(String.valueOf(event.getObject().getJogador2()));
 		
-		if(jogada.getResultado().equals(jogada.getJogador1())) {
-			jogada.setResultado(String.valueOf(event.getObject().getJogador1()));
-		} else if(jogada.getResultado().equals(jogada.getJogador2())) {
-			jogada.setResultado(String.valueOf(event.getObject().getJogador2()));
-		}
-		
-		jogada.setJogador1(String.valueOf(event.getObject().getJogador1()));
-		jogada.setJogador2(String.valueOf(event.getObject().getJogador2()));
-		
-		JogadaDao.editar(jogada);
+		JogadaDao.editar(event.getObject());
 	    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("ID: " + event.getObject().getId()+"   ->   Jogadores Editados: ", String.valueOf(event.getObject().getJogador1() + " e " + event.getObject().getJogador2())));
-	    
-	    return listaJogador;
     }
 	
     public void onRowCancel(RowEditEvent<Jogada> event) throws Exception {
@@ -175,14 +175,6 @@ public class JogadaBean {
 			e.printStackTrace();
 		}
 		return listaJogador = JogadaDao.buscarTodos();
-	}
-	
-	public void editar(Jogada jogada) {
-		try {
-			JogadaDao.editar(jogada);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public Long buscarSomaPapel() throws Exception {
