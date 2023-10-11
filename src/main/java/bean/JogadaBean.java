@@ -19,56 +19,14 @@ public class JogadaBean {
 	
 	private Jogada jogada = new Jogada();
 	private List<Jogada> listaJogador;
-	
-//	public void onCellEdit(CellEditEvent<Jogada> event) throws NumberFormatException, Exception {
-//        Object oldValue = event.getOldValue();
-//        Object newValue = event.getNewValue();
-//
-//        String player1Velho = String.valueOf(event.getOldValue().getJogador1().toString());
-//        String player1Novo = String.valueOf(event.getNewValue().getJogador1().toString());
-//        String player2Velho = String.valueOf(event.getOldValue().getJogador2().toString());
-//        String player2Novo = String.valueOf(event.getNewValue().getJogador2().toString());
-//        Integer id = event.getOldValue().getId();
-//        
-//        Jogada j = JogadaDao.buscarPorId(id);
-//        
-//        System.out.println(player1Novo);
-//        System.out.println(player2Novo);
-//        
-//        if(player1Velho.toString().equals(j.getJogador1().toString())) {
-//        	j.setJogador1(player1Novo.toString());
-//        } else if(player2Velho.toString().equals(j.getJogador2().toString())) {
-//        	j.setJogador2(player2Novo.toString());
-//        }
-//        
-//        System.out.println(j.getJogador1());
-//        System.out.println(j.getJogador2());
-//                
-//        JogadaDao.editar(j);
-//
-//        if (newValue != null && !newValue.equals(oldValue)) {
-//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, ". Célula editada -> Valor antigo: " + oldValue + ", Valor novo:" + newValue));
-//        }
-//    }
-	
-	public void onRowEdit(RowEditEvent<Jogada> event) throws Exception {
-//		Jogada jogada = JogadaDao.buscarPorId(event.getObject().getId());
-//		
-//		if(jogada.getResultado().equals(jogada.getJogador1())) {
-//			jogada.setResultado(String.valueOf(event.getObject().getJogador1()));
-//		} else if(jogada.getResultado().equals(jogada.getJogador2())) {
-//			jogada.setResultado(String.valueOf(event.getObject().getJogador2()));
-//		}
-//		
-//		jogada.setJogador1(String.valueOf(event.getObject().getJogador1()));
-//		jogada.setJogador2(String.valueOf(event.getObject().getJogador2()));
 		
+	public void onRowEdit(RowEditEvent<Jogada> event) throws Exception {	
 		JogadaDao.editar(event.getObject());
 	    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("ID: " + event.getObject().getId()+"   ->   Jogadores Editados: ", String.valueOf(event.getObject().getJogador1() + " e " + event.getObject().getJogador2())));
     }
 	
     public void onRowCancel(RowEditEvent<Jogada> event) throws Exception {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("ID: " + event.getObject().getId()+"   ->   Edição cancelada: ", String.valueOf(event.getObject().getJogador1() + " e " + event.getObject().getJogador2())));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ID: " + event.getObject().getId()+"   ->   Edição cancelada: ", String.valueOf(event.getObject().getJogador1() + " e " + event.getObject().getJogador2())));
     }	
 	
 	public void clear() throws Exception{
